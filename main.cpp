@@ -1,30 +1,38 @@
-#include "create.hpp"
-#include "read.hpp"
+#include <iostream>
+#include "create.hpp" // Include header untuk create.hpp
+#include "read.hpp"   // Include header untuk read.hpp
 
 using namespace std;
 
 int main() {
-    vector<vector<create::buku>> gudang;
+    string filename = "gudang.txt"; // Nama file gudang
 
     int pilihan;
     do {
-        read::tampilkanMenu();
+        read::tampilkanMenu(); // Tampilkan menu
         cin >> pilihan;
 
         switch (pilihan) {
             case 1:
-                create tambah;
-                tambah.tambahbuku(gudang);
-                break;
+                {
+                    // Tambah buku baru
+                    queue<create::buku> gudangQueue;
+                    create c;
+                    c.tambahbuku(gudangQueue);
+                    c.simpanKeFile(filename, gudangQueue);
+                    read::sortingBukuDariFile(filename);
+                    break;
+                }
             case 2:
-                read::tampilkanGudang(gudang);
+                // Tampilkan daftar buku dari file
+                read::tampilkanBukuDariFile(filename);
                 break;
             case 3:
-                cout << "Terima kasih telah menggunakan program." << endl;
+                // Keluar
+                cout << "Terima kasih! Program selesai.\n";
                 break;
             default:
-                cout << "Pilihan tidak valid!" << endl;
-                break;
+                cout << "Pilihan tidak valid. Silakan pilih lagi.\n";
         }
     } while (pilihan != 3);
 

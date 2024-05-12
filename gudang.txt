@@ -1,0 +1,3 @@
+Judul: aquaman, Penulis: dc, Penerbit: dcu, Rak: A, Status: 2
+Judul: harry potter and the sorcerer stone, Penulis: j.k rowling, Penerbit: gramedia, Rak: H, Status: 5
+Judul: percy jackson, Penulis: gatau, Penerbit: gatau, Rak: P, Status: 3
