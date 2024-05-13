@@ -15,15 +15,15 @@ int main() {
         switch (pilihan) {
             case 1:
                 {
-                    // Tambah buku baru
-                    queue<create::buku> gudangQueue;
-                    create c;
-                    c.tambahbuku(gudangQueue);
-                    c.simpanKeFile(filename, gudangQueue);
-                    read::sortingBukuDariFile(filename);
-                    break;
+                // Tambah buku baru
+                queue<create::buku> gudangQueue;
+                create c;
+                c.tambahbuku(gudangQueue);
+                c.simpanKeFile(filename, gudangQueue);
+                break;
                 }
             case 2:
+                read::sortingBukuDariFile(filename);
                 // Tampilkan daftar buku dari file
                 read::tampilkanBukuDariFile(filename);
                 break;

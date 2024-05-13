@@ -11,7 +11,7 @@ using namespace std;
 class create {
 public:
     struct buku {
-        string judul, penulis, penerbit;
+        string judul, penulis, genre;
         char rak;
         int status;
     };
@@ -28,8 +28,8 @@ void create::tambahbuku(queue<buku>& gudangQueue) {
     cout << "Masukkan nama penulis buku: ";
     getline(cin, bukuBaru.penulis);
 
-    cout << "Masukkan nama penerbit buku: ";
-    getline(cin, bukuBaru.penerbit);
+    cout << "Masukkan nama genre buku: ";
+    getline(cin, bukuBaru.genre);
 
     cout << "Masukkan kode rak buku: ";
     cin >> bukuBaru.rak;
@@ -50,8 +50,8 @@ void create::simpanKeFile(const string& filename, queue<buku>& gudangQueue) {
 
     while (!gudangQueue.empty()) {
         buku b = gudangQueue.front();
-        file << "Judul: " << b.judul << ", Penulis: " << b.penulis << ", Penerbit: " << b.penerbit
-             << ", Rak: " << b.rak << ", Status: " << b.status << endl;
+        file << b.judul << ", " << b.penulis << ", " << b.genre
+             << ", " << b.rak << ", " << b.status << endl;
         gudangQueue.pop();
     }
 

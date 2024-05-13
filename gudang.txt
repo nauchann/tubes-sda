@@ -1,3 +1,4 @@
-Judul: aquaman, Penulis: dc, Penerbit: dcu, Rak: A, Status: 2
-Judul: harry potter and the sorcerer stone, Penulis: j.k rowling, Penerbit: gramedia, Rak: H, Status: 5
-Judul: percy jackson, Penulis: gatau, Penerbit: gatau, Rak: P, Status: 3
+aquaman, us, action, A, 2
+bernard, kartun, comedy, B, 1
+harry potter, j.k rowling, fantasy, H, 2
+percy jackson, universal studio, fantasy, P, 3

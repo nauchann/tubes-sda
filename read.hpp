@@ -31,9 +31,27 @@ void read::tampilkanBukuDariFile(const string& filename) {
     }
 
     cout << "Isi dari file \"" << filename << "\":" << endl;
-    string line;
-    while (getline(file, line)) {
-        cout << line << endl;
+    string judul, penulis, genre, rak, status;
+
+    while (getline(file, judul, ',')) {
+        getline(file, penulis, ',');
+        getline(file, genre, ',');
+        getline(file, rak, ',');
+        getline(file, status);
+
+        // Menghapus spasi tambahan setelah koma
+        judul.erase(0, judul.find_first_not_of(" \t\n\r\f\v"));
+        penulis.erase(0, penulis.find_first_not_of(" \t\n\r\f\v"));
+        genre.erase(0, genre.find_first_not_of(" \t\n\r\f\v"));
+        rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
+        status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
+
+        cout << "Judul: " << judul << endl;
+        cout << "Penulis: " << penulis << endl;
+        cout << "Genre: " << genre << endl;
+        cout << "Rak: " << rak << endl;
+        cout << "Status: " << status << endl;
+        cout << endl;
     }
 
     file.close();
@@ -58,9 +76,15 @@ void read::sortingBukuDariFile(const string& filename) {
     for (int i = 1; i < lines.size(); ++i) {
         string key = lines[i];
         int j = i - 1;
-        while (j >= 0 && lines[j].substr(7) > key.substr(7)) {
-            lines[j + 1] = lines[j];
-            --j;
+        string keyJudul = key.substr(0, key.find(',')); // Ambil bagian judul dari key
+        while (j >= 0) {
+            string lineJudul = lines[j].substr(0, lines[j].find(',')); // Ambil bagian judul dari lines[j]
+            if (lineJudul.compare(keyJudul) > 0) {
+                lines[j + 1] = lines[j];
+                --j;
+            } else {
+                break;
+            }
         }
         lines[j + 1] = key;
     }
