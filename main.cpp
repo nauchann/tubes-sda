@@ -11,8 +11,8 @@ int main() {
     do {
         read::tampilkanMenu(); // Tampilkan menu
         cin >> pilihan;
-
-        switch (pilihan) {
+            
+            switch(pilihan) {
             case 1:
                 {
                 // Tambah buku baru
@@ -28,13 +28,22 @@ int main() {
                 read::tampilkanBukuDariFile(filename);
                 break;
             case 3:
+                {   
+                string keyword;
+                cout << "Masukkan kata kunci untuk mencari buku: ";
+                cin.ignore(); // Membersihkan input buffer
+                getline(cin, keyword);
+                read::cariBuku(filename, keyword);
+                break;
+                }
+            case 4:
                 // Keluar
                 cout << "Terima kasih! Program selesai.\n";
                 break;
             default:
                 cout << "Pilihan tidak valid. Silakan pilih lagi.\n";
         }
-    } while (pilihan != 3);
+    } while (pilihan != 4);
 
     return 0;
 }

@@ -5,6 +5,7 @@
 #include <fstream>
 #include <string>
 #include "create.hpp"
+#include "read.hpp"
 
 using namespace std;
 
@@ -13,13 +14,15 @@ public:
     static void tampilkanMenu();
     static void tampilkanBukuDariFile(const string& filename);
     static void sortingBukuDariFile(const string& filename);
+    static void cariBuku(const string& filename, const string& keyword);
 };
 
 void read::tampilkanMenu() {
     cout << "=== MENU ===\n";
     cout << "1. Tambah buku\n";
     cout << "2. Tampilkan Daftar Buku\n";
-    cout << "3. Keluar\n";
+    cout << "3. Cari Buku\n";
+    cout << "4. Keluar\n";
     cout << "Pilihan: ";
 }
 
@@ -101,6 +104,49 @@ void read::sortingBukuDariFile(const string& filename) {
     outfile.close();
 
     cout << "Data buku berhasil diurutkan dan disimpan ke dalam file \"" << filename << "\"." << endl;
+    
+}
+
+void read::cariBuku(const string& filename, const string& keyword) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "Gagal membuka file!" << endl;
+        return;
+    }
+
+    cout << "Hasil pencarian untuk \"" << keyword << "\":" << endl;
+    string judul, penulis, genre, rak, status;
+    bool ditemukan = false;
+
+    while (getline(file, judul, ',')) {
+        getline(file, penulis, ',');
+        getline(file, genre, ',');
+        getline(file, rak, ',');
+        getline(file, status);
+
+        // Menghapus spasi tambahan setelah koma
+        judul.erase(0, judul.find_first_not_of(" \t\n\r\f\v"));
+        penulis.erase(0, penulis.find_first_not_of(" \t\n\r\f\v"));
+        genre.erase(0, genre.find_first_not_of(" \t\n\r\f\v"));
+        rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
+        status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
+
+        if (judul.find(keyword) != string::npos || penulis.find(keyword) != string::npos) {
+            cout << "Judul: " << judul << endl;
+            cout << "Penulis: " << penulis << endl;
+            cout << "Genre: " << genre << endl;
+            cout << "Rak: " << rak << endl;
+            cout << "Status: " << status << endl;
+            cout << endl;
+            ditemukan = true;
+        }
+    }
+
+    if (!ditemukan) {
+        cout << "Tidak ada buku yang ditemukan dengan kata kunci \"" << keyword << "\"." << endl;
+    }
+
+    file.close();
 }
 
 #endif //READ_HPP
