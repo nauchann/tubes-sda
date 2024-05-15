@@ -1,4 +1,4 @@
 aquaman, us, action, A, 2
 bernard, kartun, comedy, B, 1
 harry potter, j.k rowling, fantasy, H, 2
-percy jackson, universal studio, fantasy, P, 3
+percy jackson, universal studio, fantasy, P, 4

@@ -6,6 +6,7 @@
 #include <string>
 #include "create.hpp"
 #include "read.hpp"
+#include "update.hpp"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ public:
     static void tampilkanBukuDariFile(const string& filename);
     static void sortingBukuDariFile(const string& filename);
     static void cariBuku(const string& filename, const string& keyword);
+    static void updateStatus(const string& filename);
 };
 
 void read::tampilkanMenu() {
@@ -22,7 +24,8 @@ void read::tampilkanMenu() {
     cout << "1. Tambah buku\n";
     cout << "2. Tampilkan Daftar Buku\n";
     cout << "3. Cari Buku\n";
-    cout << "4. Keluar\n";
+    cout << "4. Update Status Buku\n";
+    cout << "5. Keluar\n";
     cout << "Pilihan: ";
 }
 
@@ -147,6 +150,23 @@ void read::cariBuku(const string& filename, const string& keyword) {
     }
 
     file.close();
+}
+
+void read::updateStatus(const string& filename) {
+    string keyword, newStatus;
+    cout << "Masukkan kata kunci untuk mencari buku yang akan diperbarui statusnya: ";
+    cin.ignore();
+    getline(cin, keyword);
+
+    string status;
+    bool ditemukan = update::findAndShowBook(filename, keyword, status);
+    if (ditemukan) {
+        cout << "Masukkan status baru untuk buku: ";
+        getline(cin, newStatus);
+        update::updateStatusBuku(filename, keyword, newStatus);
+    } else {
+        cout << "Buku tidak ditemukan, status tidak dapat diperbarui." << endl;
+    }
 }
 
 #endif //READ_HPP
