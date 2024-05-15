@@ -1,6 +1,7 @@
 #include <iostream>
 #include "create.hpp" // Include header untuk create.hpp
 #include "read.hpp"   // Include header untuk read.hpp
+#include "update.hpp" // Include header untuk update.hpp
 
 using namespace std;
 
@@ -16,11 +17,12 @@ int main() {
             case 1:
                 {
                 // Tambah buku baru
-                queue<create::buku> gudangQueue;
-                create c;
-                c.tambahbuku(gudangQueue);
-                c.simpanKeFile(filename, gudangQueue);
-                break;
+                    queue<create::buku> gudangQueue;
+                    create c;
+                    if (c.tambahbuku(gudangQueue, filename)) {
+                        c.simpanKeFile(filename, gudangQueue);
+                    }
+                    break;
                 }
             case 2:
                 read::sortingBukuDariFile(filename);
@@ -37,13 +39,18 @@ int main() {
                 break;
                 }
             case 4:
+                {
+                read::updateStatus(filename);
+                break;
+                }
+            case 5:
                 // Keluar
                 cout << "Terima kasih! Program selesai.\n";
                 break;
             default:
                 cout << "Pilihan tidak valid. Silakan pilih lagi.\n";
         }
-    } while (pilihan != 4);
+    } while (pilihan != 5);
 
     return 0;
 }
