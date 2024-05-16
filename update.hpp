@@ -12,6 +12,7 @@ class update {
 public:
     static bool findAndShowBook(const string& filename, const string& keyword, string& status);
     static void updateStatusBuku(const string& filename, const string& keyword, const string& newStatus);
+    static void updateStatus(const string& filename);
 };
 
 bool update::findAndShowBook(const string& filename, const string& keyword, string& status) {
@@ -101,5 +102,23 @@ void update::updateStatusBuku(const string& filename, const string& keyword, con
 
     cout << "Status buku berhasil diperbarui." << endl;
 }
+
+void update::updateStatus(const string& filename) {
+    string keyword, newStatus;
+    cout << "Masukkan kata kunci untuk mencari buku yang akan diperbarui statusnya: ";
+    cin.ignore();
+    getline(cin, keyword);
+
+    string status;
+    bool ditemukan = update::findAndShowBook(filename, keyword, status);
+    if (ditemukan) {
+        cout << "Masukkan status baru untuk buku: ";
+        getline(cin, newStatus);
+        update::updateStatusBuku(filename, keyword, newStatus);
+    } else {
+        cout << "Buku tidak ditemukan, status tidak dapat diperbarui." << endl;
+    }
+}
+
 
 #endif //UPDATE_HPP

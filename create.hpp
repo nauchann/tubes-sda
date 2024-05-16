@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <queue> // Header untuk queue
+#include <vector> 
 #include <sstream>
 
 using namespace std;
@@ -16,13 +16,13 @@ public:
         char rak;
         int status;
     };
-    bool tambahbuku(queue<buku>& gudangQueue, const string& filename);
-    void simpanKeFile(const string& filename, queue<buku>& gudangQueue);
+    bool tambahbuku(vector<buku>& gudang, const string& filename);
+    void simpanKeFile(const string& filename, const vector<buku>& gudang);
 private:
     bool cekBukuDiFile(const string& filename, const string& judul);
 };
 
-bool create::tambahbuku(queue<buku>& gudangQueue, const string& filename) {
+bool create::tambahbuku(vector<buku>& gudang, const string& filename) {
     buku bukuBaru;
     cin.ignore(); // Membersihkan buffer sebelum meminta input pengguna
     cout << "Masukkan judul buku: ";
@@ -42,11 +42,13 @@ bool create::tambahbuku(queue<buku>& gudangQueue, const string& filename) {
 
     cout << "Masukkan kode rak buku: ";
     cin >> bukuBaru.rak;
+    cin.ignore(); // Membersihkan buffer setelah cin
 
     cout << "Masukkan jumlah buku: ";
     cin >> bukuBaru.status;
+    cin.ignore(); // Membersihkan buffer setelah cin
 
-    gudangQueue.push(bukuBaru); // Menggunakan push() untuk menambahkan ke queue
+    gudang.push_back(bukuBaru); // Menggunakan push_back() untuk menambahkan ke vector
     cout << "Buku berhasil ditambahkan!\n";
     return true;
 }
@@ -73,18 +75,16 @@ bool create::cekBukuDiFile(const string& filename, const string& judul) {
     return false;
 }
 
-void create::simpanKeFile(const string& filename, queue<buku>& gudangQueue) {
+void create::simpanKeFile(const string& filename, const vector<buku>& gudang) {
     ofstream file(filename, ios::app);
     if (!file.is_open()) {
         cout << "Gagal membuka file!" << endl;
         return;
     }
 
-    while (!gudangQueue.empty()) {
-        buku b = gudangQueue.front();
+    for (const auto& b : gudang) {
         file << b.judul << ", " << b.penulis << ", " << b.genre
              << ", " << b.rak << ", " << b.status << endl;
-        gudangQueue.pop();
     }
 
     file.close();
@@ -92,3 +92,4 @@ void create::simpanKeFile(const string& filename, queue<buku>& gudangQueue) {
 }
 
 #endif // CREATE_HPP
+

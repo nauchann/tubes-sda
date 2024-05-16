@@ -2,6 +2,7 @@
 #include "create.hpp" // Include header untuk create.hpp
 #include "read.hpp"   // Include header untuk read.hpp
 #include "update.hpp" // Include header untuk update.hpp
+#include "delete.hpp" // Include header untuk delete.hpp
 
 using namespace std;
 
@@ -17,10 +18,10 @@ int main() {
             case 1:
                 {
                 // Tambah buku baru
-                    queue<create::buku> gudangQueue;
+                    vector<create::buku> gudang;
                     create c;
-                    if (c.tambahbuku(gudangQueue, filename)) {
-                        c.simpanKeFile(filename, gudangQueue);
+                    if (c.tambahbuku(gudang, filename)) {
+                        c.simpanKeFile(filename, gudang);
                     }
                     break;
                 }
@@ -40,17 +41,25 @@ int main() {
                 }
             case 4:
                 {
-                read::updateStatus(filename);
+                update::updateStatus(filename);
                 break;
                 }
-            case 5:
-                // Keluar
+               case 5:
+                {
+                    string judul;
+                    cout << "Masukkan judul buku yang ingin dihapus: ";
+                    cin.ignore();
+                    getline(cin, judul);
+                    hapusBuku(filename, judul); 
+                    break;
+                }
+            case 6:
                 cout << "Terima kasih! Program selesai.\n";
                 break;
             default:
                 cout << "Pilihan tidak valid. Silakan pilih lagi.\n";
         }
-    } while (pilihan != 5);
-
+    } while (pilihan != 6);
+    
     return 0;
 }
