@@ -1,0 +1,2 @@
+bernard, kartun, comedy, B, 5
+harry potter, j.k rowling, fantasy, H, 2
