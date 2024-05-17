@@ -42,7 +42,7 @@ bool update::findAndShowBook(const string& filename, const string& keyword, stri
                  << "Penulis: " << penulis << endl
                  << "Genre: " << genre << endl
                  << "Rak: " << rak << endl
-                 << "Status: " << status << endl << endl;
+                 << "Status(Qty): " << status << endl << endl;
             ditemukan = true;
             break;
         }

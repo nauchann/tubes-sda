@@ -8,7 +8,12 @@
 
 using namespace std;
 
-void hapusBuku(const string& filename, const string& judul) {
+class del{
+    public:
+        static void hapusBuku(const string& filename, const string& judul);
+};
+
+void del::hapusBuku(const string& filename, const string& judul) {
     ifstream fileInput(filename);
     if (!fileInput) {
         cerr << "Gagal membuka file " << filename << " untuk menghapus buku.\n";

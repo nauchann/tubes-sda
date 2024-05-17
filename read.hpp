@@ -4,11 +4,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "create.hpp"
-#include "read.hpp"
-#include "update.hpp"
-#include "delete.hpp"
-
+#include <vector>
+#include <set>
+#include "create.hpp"  // Pastikan create.hpp ada dan tidak memiliki siklus pengiriman
 
 using namespace std;
 
@@ -18,6 +16,8 @@ public:
     static void tampilkanBukuDariFile(const string& filename);
     static void sortingBukuDariFile(const string& filename);
     static void cariBuku(const string& filename, const string& keyword);
+    static void filterBukuByGenre(const string& filename, const string& genre);
+    static void tampilkanGenre(const string& filename);
 };
 
 void read::tampilkanMenu() {
@@ -27,7 +27,8 @@ void read::tampilkanMenu() {
     cout << "3. Cari Buku\n";
     cout << "4. Update Status Buku\n";
     cout << "5. Delete buku\n";
-    cout << "6. Keluar\n";
+    cout << "6. Filter Buku Berdasarkan Genre\n";
+    cout << "7. Keluar\n";
     cout << "Pilihan: ";
 }
 
@@ -38,7 +39,6 @@ void read::tampilkanBukuDariFile(const string& filename) {
         return;
     }
 
-    cout << "Isi dari file \"" << filename << "\":" << endl;
     string judul, penulis, genre, rak, status;
 
     while (getline(file, judul, ',')) {
@@ -58,7 +58,7 @@ void read::tampilkanBukuDariFile(const string& filename) {
         cout << "Penulis: " << penulis << endl;
         cout << "Genre: " << genre << endl;
         cout << "Rak: " << rak << endl;
-        cout << "Status: " << status << endl;
+        cout << "Status(Qty): " << status << endl;
         cout << endl;
     }
 
@@ -66,7 +66,6 @@ void read::tampilkanBukuDariFile(const string& filename) {
 }
 
 void read::sortingBukuDariFile(const string& filename) {
-    // Baca data dari file ke dalam vektor
     vector<string> lines;
     ifstream file(filename);
     if (!file.is_open()) {
@@ -80,13 +79,12 @@ void read::sortingBukuDariFile(const string& filename) {
     }
     file.close();
 
-    // Lakukan pengurutan berdasarkan abjad judul buku menggunakan insertion sort
     for (int i = 1; i < lines.size(); ++i) {
         string key = lines[i];
         int j = i - 1;
-        string keyJudul = key.substr(0, key.find(',')); // Ambil bagian judul dari key
+        string keyJudul = key.substr(0, key.find(','));
         while (j >= 0) {
-            string lineJudul = lines[j].substr(0, lines[j].find(',')); // Ambil bagian judul dari lines[j]
+            string lineJudul = lines[j].substr(0, lines[j].find(','));
             if (lineJudul.compare(keyJudul) > 0) {
                 lines[j + 1] = lines[j];
                 --j;
@@ -97,7 +95,6 @@ void read::sortingBukuDariFile(const string& filename) {
         lines[j + 1] = key;
     }
 
-    // Tulis kembali data yang sudah diurutkan ke dalam file
     ofstream outfile(filename);
     if (!outfile.is_open()) {
         cout << "Gagal membuka file!" << endl;
@@ -109,7 +106,6 @@ void read::sortingBukuDariFile(const string& filename) {
     outfile.close();
 
     cout << "Data buku berhasil diurutkan dan disimpan ke dalam file \"" << filename << "\"." << endl;
-    
 }
 
 void read::cariBuku(const string& filename, const string& keyword) {
@@ -129,7 +125,6 @@ void read::cariBuku(const string& filename, const string& keyword) {
         getline(file, rak, ',');
         getline(file, status);
 
-        // Menghapus spasi tambahan setelah koma
         judul.erase(0, judul.find_first_not_of(" \t\n\r\f\v"));
         penulis.erase(0, penulis.find_first_not_of(" \t\n\r\f\v"));
         genre.erase(0, genre.find_first_not_of(" \t\n\r\f\v"));
@@ -149,6 +144,77 @@ void read::cariBuku(const string& filename, const string& keyword) {
 
     if (!ditemukan) {
         cout << "Tidak ada buku yang ditemukan dengan kata kunci \"" << keyword << "\"." << endl;
+    }
+
+    file.close();
+}
+
+void read::tampilkanGenre(const string& filename) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "Gagal membuka file!" << endl;
+        return;
+    }
+
+    set<string> genres;
+    string judul, penulis, genre, rak, status;
+
+    while (getline(file, judul, ',')) {
+        getline(file, penulis, ',');
+        getline(file, genre, ',');
+        getline(file, rak, ',');
+        getline(file, status);
+
+        genre.erase(0, genre.find_first_not_of(" \t\n\r\f\v"));
+        
+        genres.insert(genre);
+    }
+
+    file.close();
+
+    cout << "\nGenre yang tersedia:" << endl;
+    for (const auto& g : genres) {
+        cout << g << endl;
+    }
+    cout << endl;
+}
+
+void read::filterBukuByGenre(const string& filename, const string& genre) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        cout << "Gagal membuka file!" << endl;
+        return;
+    }
+
+    cout << "Hasil filter untuk genre \"" << genre << "\":" << endl;
+    string judul, penulis, genreBuku, rak, status;
+    bool ditemukan = false;
+
+    while (getline(file, judul, ',')) {
+        getline(file, penulis, ',');
+        getline(file, genreBuku, ',');
+        getline(file, rak, ',');
+        getline(file, status);
+
+        judul.erase(0, judul.find_first_not_of(" \t\n\r\f\v"));
+        penulis.erase(0, penulis.find_first_not_of(" \t\n\r\f\v"));
+        genreBuku.erase(0, genreBuku.find_first_not_of(" \t\n\r\f\v"));
+        rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
+        status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
+
+        if (genreBuku == genre) {
+            cout << "Judul: " << judul << endl;
+            cout << "Penulis: " << penulis << endl;
+            cout << "Genre: " << genreBuku << endl;
+            cout << "Rak: " << rak << endl;
+            cout << "Status(Qty): " << status << endl;
+            cout << endl;
+            ditemukan = true;
+        }
+    }
+
+    if (!ditemukan) {
+        cout << "Tidak ada buku yang ditemukan dengan genre \"" << genre << "\"." << endl;
     }
 
     file.close();

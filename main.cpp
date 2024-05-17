@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 #include "create.hpp" // Include header untuk create.hpp
 #include "read.hpp"   // Include header untuk read.hpp
 #include "update.hpp" // Include header untuk update.hpp
@@ -6,60 +7,85 @@
 
 using namespace std;
 
+void pressAnyKey() {
+    cout << "Press any key to continue...";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    system("cls");
+}
 int main() {
     string filename = "gudang.txt"; // Nama file gudang
+    create c;
+    read r;
+    update u;
+    del d;
 
     int pilihan;
     do {
-        read::tampilkanMenu(); // Tampilkan menu
+        r.tampilkanMenu(); // Tampilkan menu
         cin >> pilihan;
             
-            switch(pilihan) {
+        switch(pilihan) {
             case 1:
                 {
-                // Tambah buku baru
+                    // Tambah buku baru
                     vector<create::buku> gudang;
-                    create c;
                     if (c.tambahbuku(gudang, filename)) {
                         c.simpanKeFile(filename, gudang);
                     }
+                    pressAnyKey();
                     break;
                 }
             case 2:
-                read::sortingBukuDariFile(filename);
+                r.sortingBukuDariFile(filename);
                 // Tampilkan daftar buku dari file
-                read::tampilkanBukuDariFile(filename);
+                r.tampilkanBukuDariFile(filename);
+                pressAnyKey();
                 break;
             case 3:
                 {   
-                string keyword;
-                cout << "Masukkan kata kunci untuk mencari buku: ";
-                cin.ignore(); // Membersihkan input buffer
-                getline(cin, keyword);
-                read::cariBuku(filename, keyword);
-                break;
+                    string keyword;
+                    cout << "Masukkan kata kunci (judul buku / penulis) untuk mencari buku: ";
+                    cin.ignore(); // Membersihkan input buffer
+                    getline(cin, keyword);
+                    r.cariBuku(filename, keyword);
+                    pressAnyKey();
+                    break;
                 }
             case 4:
                 {
-                update::updateStatus(filename);
-                break;
+                    u.updateStatus(filename);
+                    pressAnyKey();
+                    break;
                 }
-               case 5:
+            case 5:
                 {
                     string judul;
                     cout << "Masukkan judul buku yang ingin dihapus: ";
                     cin.ignore();
                     getline(cin, judul);
-                    hapusBuku(filename, judul); 
+                    d.hapusBuku(filename, judul); 
+                    pressAnyKey();
                     break;
                 }
             case 6:
+                {
+                    r.tampilkanGenre(filename);
+                    string genre;
+                    cout << "Masukkan nama genre yang ingin dilihat: ";
+                    cin.ignore(); // Membersihkan input buffer
+                    getline(cin, genre);
+                    r.filterBukuByGenre(filename, genre);
+                    pressAnyKey();
+                    break;
+                }    
+            case 7:
                 cout << "Terima kasih! Program selesai.\n";
                 break;
             default:
                 cout << "Pilihan tidak valid. Silakan pilih lagi.\n";
+                pressAnyKey();
         }
-    } while (pilihan != 6);
+    } while (pilihan != 7);
     
     return 0;
 }

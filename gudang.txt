@@ -1,4 +1,6 @@
 aquaman, us, action, A, 2
 bernard, kartun, comedy, B, 1
 harry potter, j.k rowling, fantasy, H, 2
+hujan, tereliye, drama, T, 3
 percy jackson, universal studio, fantasy, P, 4
+the lord of the ring, gatau, fantasy, J, 1

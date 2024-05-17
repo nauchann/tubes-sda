@@ -50,6 +50,7 @@ bool create::tambahbuku(vector<buku>& gudang, const string& filename) {
 
     gudang.push_back(bukuBaru); // Menggunakan push_back() untuk menambahkan ke vector
     cout << "Buku berhasil ditambahkan!\n";
+    cout << endl;
     return true;
 }
 
@@ -88,7 +89,6 @@ void create::simpanKeFile(const string& filename, const vector<buku>& gudang) {
     }
 
     file.close();
-    cout << "Data buku berhasil disimpan ke dalam file \"" << filename << "\"." << endl;
 }
 
 #endif // CREATE_HPP
