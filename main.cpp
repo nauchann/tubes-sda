@@ -36,11 +36,12 @@ int main() {
                     break;
                 }
             case 2:
-                r.sortingBukuDariFile(filename);
-                // Tampilkan daftar buku dari file
-                r.tampilkanBukuDariFile(filename);
-                pressAnyKey();
-                break;
+                {
+                    r.sortingBukuDariFile(filename);
+                    r.tampilkanBukuDariFile(filename);
+                    pressAnyKey();
+                    break;
+                }
             case 3:
                 {   
                     string keyword;

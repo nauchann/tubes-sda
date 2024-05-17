@@ -1,6 +1,9 @@
-aquaman, us, action, A, 2
-bernard, kartun, comedy, B, 1
-harry potter, j.k rowling, fantasy, H, 2
+koala kumal, raditya dika, komedi, K, 2
+malice, keigo higashino, misteri, M, 1
+harry potter and the sorcerer stone, j.k rowling, fantasi, H, 2
 hujan, tereliye, drama, T, 3
-percy jackson, universal studio, fantasy, P, 4
-the lord of the ring, gatau, fantasy, J, 1
+percy jackson and the olympians, rick riordan, fantasi, P, 4
+the lord of the ring, j.r.r tolkien, fantasi, J, 1
+dilan 1990, pidi baiq, romantis, D, 3
+laskar pelangi, andrea hirata, drama, L, 2
+sherlock holmes, arthur conan doyle, misteri, S, 1 
