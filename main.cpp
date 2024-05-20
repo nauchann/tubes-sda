@@ -1,5 +1,5 @@
 #include <iostream>
-#include <limits>
+#include <conio.h>
 #include "create.hpp" // Include header untuk create.hpp
 #include "read.hpp"   // Include header untuk read.hpp
 #include "update.hpp" // Include header untuk update.hpp
@@ -9,9 +9,9 @@ using namespace std;
 
 void pressAnyKey() {
     cout << "Press any key to continue...";
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    system("cls");
+    _getch();
 }
+
 int main() {
     string filename = "gudang.txt"; // Nama file gudang
     create c;
@@ -33,6 +33,7 @@ int main() {
                         c.simpanKeFile(filename, gudang);
                     }
                     pressAnyKey();
+                    system("cls");
                     break;
                 }
             case 2:
@@ -50,12 +51,14 @@ int main() {
                     getline(cin, keyword);
                     r.cariBuku(filename, keyword);
                     pressAnyKey();
+                    system("cls");
                     break;
                 }
             case 4:
                 {
                     u.updateStatus(filename);
                     pressAnyKey();
+                    system("cls");
                     break;
                 }
             case 5:
@@ -66,6 +69,7 @@ int main() {
                     getline(cin, judul);
                     d.hapusBuku(filename, judul); 
                     pressAnyKey();
+                    system("cls");
                     break;
                 }
             case 6:
@@ -77,6 +81,7 @@ int main() {
                     getline(cin, genre);
                     r.filterBukuByGenre(filename, genre);
                     pressAnyKey();
+                    system("cls");
                     break;
                 }    
             case 7:
