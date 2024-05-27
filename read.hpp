@@ -6,6 +6,8 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <cctype>
+#include <algorithm>
 #include "create.hpp" // Pastikan create.hpp ada dan tidak memiliki siklus pengiriman
 
 using namespace std;
@@ -19,6 +21,7 @@ public:
     static void cariBuku(const string &filename, const string &keyword);
     static void filterBukuByGenre(const string &filename, const string &genre);
     static void tampilkanGenre(const string &filename);
+    static string toLower(const string &str); // Made static
 };
 
 void read::tampilkanMenu()
@@ -134,6 +137,8 @@ void read::cariBuku(const string &filename, const string &keyword)
     string judul, penulis, genre, rak, status;
     bool ditemukan = false;
 
+    string lowerkeyword = toLower(keyword);
+
     while (getline(file, judul, ','))
     {
         getline(file, penulis, ',');
@@ -147,7 +152,10 @@ void read::cariBuku(const string &filename, const string &keyword)
         rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
         status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
 
-        if (judul.find(keyword) != string::npos || penulis.find(keyword) != string::npos)
+        string lowerjudul = toLower(judul);
+        string lowerpenulis = toLower(penulis);
+
+        if (lowerjudul.find(lowerkeyword) != string::npos || lowerpenulis.find(lowerkeyword) != string::npos)
         {
             cout << "Judul\t\t: " << judul << endl;
             cout << "Penulis\t\t: " << penulis << endl;
@@ -227,11 +235,11 @@ void read::filterBukuByGenre(const string &filename, const string &genre)
         rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
         status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
 
-        if (genreBuku == genre)
+        if (toLower(genreBuku) == toLower(genre))
         {
             cout << "Judul\t\t: " << judul << endl;
             cout << "Penulis\t\t: " << penulis << endl;
-            cout << "Genre\t\t: " << genre << endl;
+            cout << "Genre\t\t: " << genreBuku << endl; // Corrected to show genreBuku
             cout << "Rak\t\t: " << rak << endl;
             cout << "Status(Qty)\t: " << status << endl;
             cout << endl;
@@ -245,6 +253,14 @@ void read::filterBukuByGenre(const string &filename, const string &genre)
     }
 
     file.close();
+}
+
+string read::toLower(const std::string &str)
+{
+    string lowerStr = str;
+    transform(lowerStr.begin(), lowerStr.end(), lowerStr.begin(), [](unsigned char c)
+              { return tolower(c); });
+    return lowerStr;
 }
 
 #endif // READ_HPP
