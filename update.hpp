@@ -8,16 +8,19 @@
 
 using namespace std;
 
-class update {
+class update
+{
 public:
-    static bool findAndShowBook(const string& filename, const string& keyword, string& status);
-    static void updateStatusBuku(const string& filename, const string& keyword, const string& newStatus);
-    static void updateStatus(const string& filename);
+    static bool findAndShowBook(const string &filename, const string &keyword, string &status);
+    static void updateStatusBuku(const string &filename, const string &keyword, const string &newStatus);
+    static void updateStatus(const string &filename);
 };
 
-bool update::findAndShowBook(const string& filename, const string& keyword, string& status) {
+bool update::findAndShowBook(const string &filename, const string &keyword, string &status)
+{
     ifstream file(filename);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         cout << "Gagal membuka file!" << endl;
         return false;
     }
@@ -25,7 +28,8 @@ bool update::findAndShowBook(const string& filename, const string& keyword, stri
     string judul, penulis, genre, rak;
     bool ditemukan = false;
 
-    while (getline(file, judul, ',')) {
+    while (getline(file, judul, ','))
+    {
         getline(file, penulis, ',');
         getline(file, genre, ',');
         getline(file, rak, ',');
@@ -37,12 +41,14 @@ bool update::findAndShowBook(const string& filename, const string& keyword, stri
         rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
         status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
 
-        if (judul.find(keyword) != string::npos || penulis.find(keyword) != string::npos) {
-            cout << "Judul: " << judul << endl
-                 << "Penulis: " << penulis << endl
-                 << "Genre: " << genre << endl
-                 << "Rak: " << rak << endl
-                 << "Status(Qty): " << status << endl << endl;
+        if (judul.find(keyword) != string::npos || penulis.find(keyword) != string::npos)
+        {
+            cout << "Judul\t\t: " << judul << endl;
+            cout << "Penulis\t\t: " << penulis << endl;
+            cout << "Genre\t\t: " << genre << endl;
+            cout << "Rak\t\t: " << rak << endl;
+            cout << "Status(Qty)\t: " << status << endl;
+            cout << endl;
             ditemukan = true;
             break;
         }
@@ -52,9 +58,11 @@ bool update::findAndShowBook(const string& filename, const string& keyword, stri
     return ditemukan;
 }
 
-void update::updateStatusBuku(const string& filename, const string& keyword, const string& newStatus) {
+void update::updateStatusBuku(const string &filename, const string &keyword, const string &newStatus)
+{
     ifstream file(filename);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         cout << "Gagal membuka file!" << endl;
         return;
     }
@@ -63,7 +71,8 @@ void update::updateStatusBuku(const string& filename, const string& keyword, con
     string judul, penulis, genre, rak, status;
     bool ditemukan = false;
 
-    while (getline(file, judul, ',')) {
+    while (getline(file, judul, ','))
+    {
         getline(file, penulis, ',');
         getline(file, genre, ',');
         getline(file, rak, ',');
@@ -75,7 +84,8 @@ void update::updateStatusBuku(const string& filename, const string& keyword, con
         rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
         status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
 
-        if (judul.find(keyword) != string::npos || penulis.find(keyword) != string::npos) {
+        if (judul.find(keyword) != string::npos || penulis.find(keyword) != string::npos)
+        {
             status = newStatus;
             ditemukan = true;
         }
@@ -84,18 +94,21 @@ void update::updateStatusBuku(const string& filename, const string& keyword, con
     }
     file.close();
 
-    if (!ditemukan) {
+    if (!ditemukan)
+    {
         cout << "Tidak ada buku yang ditemukan dengan kata kunci \"" << keyword << "\"." << endl;
         return;
     }
 
     ofstream outfile(filename);
-    if (!outfile.is_open()) {
+    if (!outfile.is_open())
+    {
         cout << "Gagal membuka file!" << endl;
         return;
     }
 
-    for (const string& line : lines) {
+    for (const string &line : lines)
+    {
         outfile << line << endl;
     }
     outfile.close();
@@ -103,7 +116,8 @@ void update::updateStatusBuku(const string& filename, const string& keyword, con
     cout << "Status buku berhasil diperbarui." << endl;
 }
 
-void update::updateStatus(const string& filename) {
+void update::updateStatus(const string &filename)
+{
     string keyword, newStatus;
     cout << "Masukkan kata kunci untuk mencari buku yang akan diperbarui statusnya: ";
     cin.ignore();
@@ -111,14 +125,16 @@ void update::updateStatus(const string& filename) {
 
     string status;
     bool ditemukan = update::findAndShowBook(filename, keyword, status);
-    if (ditemukan) {
+    if (ditemukan)
+    {
         cout << "Masukkan status baru untuk buku: ";
         getline(cin, newStatus);
         update::updateStatusBuku(filename, keyword, newStatus);
-    } else {
+    }
+    else
+    {
         cout << "Buku tidak ditemukan, status tidak dapat diperbarui." << endl;
     }
 }
 
-
-#endif //UPDATE_HPP
+#endif // UPDATE_HPP

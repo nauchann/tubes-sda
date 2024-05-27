@@ -21,6 +21,7 @@ int main() {
 
     int pilihan;
     do {
+        system("cls");
         r.tampilkanMenu(); // Tampilkan menu
         cin >> pilihan;
             
@@ -29,18 +30,14 @@ int main() {
                 {
                     // Tambah buku baru
                     vector<create::buku> gudang;
-                    if (c.tambahbuku(gudang, filename)) {
+                    if (c.tambahbuku(gudang, filename)) 
                         c.simpanKeFile(filename, gudang);
-                    }
-                    pressAnyKey();
-                    system("cls");
                     break;
                 }
             case 2:
                 {
                     r.sortingBukuDariFile(filename);
                     r.tampilkanBukuDariFile(filename);
-                    pressAnyKey();
                     break;
                 }
             case 3:
@@ -50,15 +47,11 @@ int main() {
                     cin.ignore(); // Membersihkan input buffer
                     getline(cin, keyword);
                     r.cariBuku(filename, keyword);
-                    pressAnyKey();
-                    system("cls");
                     break;
                 }
             case 4:
                 {
                     u.updateStatus(filename);
-                    pressAnyKey();
-                    system("cls");
                     break;
                 }
             case 5:
@@ -68,8 +61,6 @@ int main() {
                     cin.ignore();
                     getline(cin, judul);
                     d.hapusBuku(filename, judul); 
-                    pressAnyKey();
-                    system("cls");
                     break;
                 }
             case 6:
@@ -80,8 +71,6 @@ int main() {
                     cin.ignore(); // Membersihkan input buffer
                     getline(cin, genre);
                     r.filterBukuByGenre(filename, genre);
-                    pressAnyKey();
-                    system("cls");
                     break;
                 }    
             case 7:
@@ -89,8 +78,8 @@ int main() {
                 break;
             default:
                 cout << "Pilihan tidak valid. Silakan pilih lagi.\n";
-                pressAnyKey();
         }
+        pressAnyKey();
     } while (pilihan != 7);
     
     return 0;
