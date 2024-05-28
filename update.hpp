@@ -44,7 +44,7 @@ bool update::findAndShowBook(const string &filename, const string &keyword, stri
         rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
         status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
 
-        if (read::toLower(judul).find(lowerKeyword) != string::npos || read::toLower(penulis).find(lowerKeyword) != string::npos)
+        if (read::toLower(judul) == lowerKeyword)
         {
             cout << "Judul\t\t: " << judul << endl;
             cout << "Penulis\t\t: " << penulis << endl;
@@ -88,7 +88,7 @@ void update::updateStatusBuku(const string &filename, const string &keyword, con
         rak.erase(0, rak.find_first_not_of(" \t\n\r\f\v"));
         status.erase(0, status.find_first_not_of(" \t\n\r\f\v"));
 
-        if (read::toLower(judul).find(lowerKeyword) != string::npos || read::toLower(penulis).find(lowerKeyword) != string::npos)
+        if (read::toLower(judul) == lowerKeyword)
         {
             status = newStatus;
             ditemukan = true;
@@ -123,7 +123,7 @@ void update::updateStatusBuku(const string &filename, const string &keyword, con
 void update::updateStatus(const string &filename)
 {
     string keyword, newStatus;
-    cout << "Masukkan kata kunci untuk mencari buku yang akan diperbarui statusnya: ";
+    cout << "Masukkan judul buku yang akan diperbarui statusnya: ";
     cin.ignore();
     getline(cin, keyword);
 

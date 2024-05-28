@@ -7,5 +7,5 @@ laskar pelangi, andrea hirata, drama, L, 2
 malice, keigo higashino, misteri, M, 1
 percy jackson and the olympians, rick riordan, fantasi, P, 4
 sherlock holmes, arthur conan doyle, misteri, S, 1 
-tentang kamu, tereliye, drama, T, 5
+tentang kamu, tereliye, drama, T, 12
 the lord of the ring, j.r.r tolkien, fantasi, J, 1
