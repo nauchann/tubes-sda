@@ -95,9 +95,13 @@ void read::sortingBukuDariFile(const string &filename)
         string key = lines[i];
         int j = i - 1;
         string keyJudul = key.substr(0, key.find(','));
+        // Konversi judul menjadi lowercase
+        transform(keyJudul.begin(), keyJudul.end(), keyJudul.begin(), ::tolower);
         while (j >= 0)
         {
             string lineJudul = lines[j].substr(0, lines[j].find(','));
+            // Konversi judul yang dibandingkan menjadi lowercase
+            transform(lineJudul.begin(), lineJudul.end(), lineJudul.begin(), ::tolower);
             if (lineJudul.compare(keyJudul) > 0)
             {
                 lines[j + 1] = lines[j];
